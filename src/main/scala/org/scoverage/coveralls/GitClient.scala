@@ -34,7 +34,7 @@ class GitClient(cwd: String)(implicit log: Logger) {
   }
 
   def currentBranch: String =
-    repository.getBranch
+    sys.env.get("CI_BRANCH").getOrElse(repository.getBranch())
 
   def lastCommit(): GitRevision = {
     val git = new Git(repository)
